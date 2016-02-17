@@ -4,7 +4,7 @@
 <p>Pieter Bork (<a href="https://github.com/pieterbork">pieterbork</a>)</p>
 <p>Cody Towstik (<a href="https://github.com/CTowtie">CTowtie</a>)</p>
 <p>Hana Sunny (<a href="https://github.com/hanasunny">hanasunny</a>)</p>
-<p>Tiffany Christensen (<a href="https://github.com/tich6264>tich6264</a>)</p>
+<p>Tiffany Christensen (<a href="https://github.com/tich6264">tich6264</a>)</p>
 
 <h2>Project Description and Vision Statement</h2>
 <p>TeamMate is a management solution for teams, roommates, and classrooms. Our vision is to help people work together more efficiently and remove conflict and confrontation from groups. TeamMate will be a web based solution and mobile app where members of a team can schedule, describe, and be reminded of current and future tasks. Our framework will provide a one-click way for teams to assign certain tasks to specific members and set up persitence and reward systems so that no deadline is ever missed.</p>
