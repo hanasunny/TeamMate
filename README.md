@@ -1,13 +1,10 @@
 # TeamMate
-<h3>what</h3>
-what
-https://trello.com/b/h8OP87ks/teammate
-<p>https://trello.com/b/h8OP87ks/teammate</p>
-<h3>Methodology</h3>
-<p>Iterative</p>
 
 <h3>Project Tracking Software</h3>
 <p><a href="https://trello.com/b/h8OP87ks/teammate">Trello</a>
+
+<h3>Methodology</h3>
+<p>Iterative</p>
 
 <h2>Group Members</h2>
 <p>Pieter Bork (<a href="https://github.com/pieterbork">pieterbork</a>)</p>
