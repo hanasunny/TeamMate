@@ -1,9 +1,9 @@
 # TeamMate
 
 <h2>Group Members</h2>
-<p>Pieter Bork (pieterbork)</p>
-<p>Cody Towstik (CTowtie)</p>
-<p>Hana Sunny (hanasunny)</p>
+<p>Pieter Bork (<a href="https://github.com/pieterbork">pieterbork</a>)</p>
+<p>Cody Towstik (<a href="https://github.com/CTowtie">CTowtie</a>)</p>
+<p>Hana Sunny (<a href="https://github.com/hanasunny">hanasunny</a>)</p>
 <p>Tiffany Christensen (tich6264)</p>
 
 <h2>Project Description and Vision Statement</h2>
