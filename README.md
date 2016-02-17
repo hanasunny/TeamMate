@@ -1,8 +1,5 @@
 # TeamMate
 
-<h3>Project Tracking Software</h3>
-<p><a href="https://trello.com/b/h8OP87ks/teammate">Trello</a>
-
 <h3>Methodology</h3>
 <p>Iterative</p>
 
@@ -39,3 +36,9 @@
 <p>[12], 3 Compatible on older phones and tablets</p>
 <p>[13], 2 Very lightweight, zero lag</p>
 <p>[14], 4 Friendly to the eye</p>
+
+
+<h3>Project Tracking Software</h3>
+<p><a href="https://trello.com/b/h8OP87ks/teammate">Trello</a>
+
+![alt tag](https://github.com/pieterbork/TeamMate/blob/master/TrelloSnap.png)
