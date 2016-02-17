@@ -40,3 +40,4 @@
 <p>[13], 2 Very lightweight, zero lag</p>
 <p>[14], 4 Friendly to the eye</p>
 
+<img src="http://postimg.org/image/w3lyjwb45/" />
