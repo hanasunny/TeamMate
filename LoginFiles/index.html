@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TeamMate - Log In or Sign Up</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,100,700,900" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="css/style.css">
+  
+  <script src="js/lib/angular/angular.min.js"></script>
+</head>
+<body>
+<div class="page">
+  <section class="card register" ng-app>
+  <form name="mylogin">
+
+   <div class="textintro" name="tiffany is sasy">
+          <h1>Form Validation</h1>
+          <p>Please fill out the following form</p>
+          <p> Welcome to the world of love.</p>
+        </div>
+
+        <fieldset>
+          <p class-"error validationerror" ng-show="mylogin.firstname.$invalid && mylogin.firstname.$touched">Please fill out your first name.</p>
+          <input type="text" name="firstname" placeholder="First Name" ng-model="user.firstname" ng-required = "true">
+          
+          <p class-"error validationerror" ng-show="mylogin.lastname.$invalid && mylogin.lastname.$touched">Please fill out your last name.</p>
+          <input type="text" name="lastname" placeholder="Last Name" ng-model="user.lastname" ng-required = "true">
+          
+          <p class-"error validationerror" ng-show="mylogin.email.$invalid && mylogin.email.$touched">Please fill out your email.</p>
+          <input type="email" name="email" placeholder="Email" ng-model="user.mail" ng-required = "true">
+          
+          <p class-"error validationerror" ng-show="mylogin.password.$invalid && mylogin.password.$touched">Password must be at least 6 characters.</p>
+          <input type="password" name="password" placeholder="Password" ng-model="user.password" ng-required = "true" ng-minlength="6">
+        </fieldset>
+
+    <button type="submit" class="btn">Submit</button>
+  </form>
+</section>
+</div>
+</body>
+</html>
