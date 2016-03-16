@@ -6,3 +6,24 @@ body {
 a {
   color: #00B7FF;
 }
+
+.sidenav {
+	width: 25%;
+	float: left;
+	height: 500px;
+	margin-right: 10px;
+}
+.sidenav ul {
+	list-style-type: none;
+	font-size: 35px;
+}
+.sidenav ul li a {
+	padding: 0;
+}
+.content-wrapper {
+	width: 70%;
+	float: right;
+}
+body {
+	padding: 0;
+}

@@ -9,29 +9,47 @@
     <script src="/javascripts/angularApp.js"></script>
     <link rel="shortcut icon" href="/images/favicon.ico?v=2" />
   </head>
-  <body ng-app="TeamMate" class="container">
-	  <div class="row">
-	    <div class="col-md-6 col-md-offset-3">
+  <body ng-app="TeamMate" class="wrapper">
+<!-- 	  <div class="row">
+	    <div class="col-md-6 col-md-offset-3"> -->
 	      <ui-view></ui-view>
-	    </div>
-	  </div>
+<!-- 	    </div>
+	  </div> -->
 
 	  <script type="text/ng-template" id="/home.html">
 	  	<div class="page-header">
 	  		<h1>TeamMate</h1>
 	  	</div>
-	    <div ng-repeat="team in teams">
-	    	<a href="#/teams/{{$index}}">{{ team.title }}</a>
-	    </div>
-	    <form ng-submit="addTeam()">
-	    	<input type="text" ng-model="title"></input>
-	    	<button type="submit">Add Team</button>
-	    </form>
+	  	<div class="sidenav">
+		  	<ul class="nav nav-pills nav-stacked">
+		  		<li role="presentation" class="active"><a href="#">HOME</a></li>
+		  		<li role="presentation"><a href="/teams.html">TEAMS</a></li>
+		  		<li role="presentation"><a href="#">BLANK</a></li>
+		  		<li role="presentation"><a href="#">SIGN OUT</a></li>
+		  	</ul>
+	  	</div>
+	  	<div class="content-wrapper">
+		    <div ng-repeat="team in teams">
+		    	<a href="#/teams/{{$index}}">{{ team.title }}</a>
+		    </div>
+		    <form ng-submit="addTeam()">
+		    	<input type="text" ng-model="title"></input>
+		    	<button type="submit">Add Team</button>
+		    </form>
+		   </div>
 	  </script>
 
 	  <script type="text/ng-template" id="/teams.html">
 	  	<div class="page-header">
 	  		<h3>{{ team.title }}</h3>
+	  	</div>
+	  	<div class="sidenav">
+		  	<ul class="nav nav-pills nav-stacked">
+		  		<li role="presentation" class="active"><a href="#">HOME</a></li>
+		  		<li role="presentation"><a href="/teams">TEAMS</a></li>
+		  		<li role="presentation"><a href="#">BLANK</a></li>
+		  		<li role="presentation"><a href="#">SIGN OUT</a></li>
+		  	</ul>
 	  	</div>
 	  	<div ng-repeat="member in team.members">
 	  		{{ member.name }}
