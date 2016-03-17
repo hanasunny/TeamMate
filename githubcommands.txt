@@ -1,0 +1,11 @@
+git@github.com:pieterbork/TeamMate.git
+
+git config --global user.name cTowtie
+git config --global user.email codesness@hotmail.com
+git init
+git remote add origin git@github.com:pieterbork/TeamMate.git
+
+git checkout -b cloud9IDE
+git add 
+git commit -m ""
+git push -u origin cloud9IDe
