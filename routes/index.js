@@ -52,7 +52,8 @@ router.get('/teams/:team/members', function(req, res, next) {
 })
 
 router.post('/teams/:team/members', function(req, res, next) {
-    var member = new Member(req.name);
+    console.log(req)
+    var member = new Member(req.body);
 
     member.save(function(err, member) {
         if(err){ return next(err); }
