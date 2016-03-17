@@ -1,5 +1,5 @@
 //factory used for service initialization, in this case FireBase authentication
-myApp.factory('Authentication', ['$rootScope','$firebaseAuth','FIREBASE_URL',function($rootScope,$firebaseAuth,FIREBASE_URL){
+myApp.factory('Authentication', ['$rootScope','$firebaseAuth','$firebaseObject','$location','FIREBASE_URL',function($rootScope,$firebaseAuth,$firebaseObject,$location,FIREBASE_URL){
     
     //create Firebase object and pass it the Firebase URL to our project
     var ref = new Firebase(FIREBASE_URL);
@@ -7,10 +7,39 @@ myApp.factory('Authentication', ['$rootScope','$firebaseAuth','FIREBASE_URL',fun
     //Passes the object into Firebase authentication
     var auth = $firebaseAuth(ref);
     
-    return{
+    //checks for user being logged in
+    auth.$onAuth(function(authUser){
+       if (authUser){
+           var userRef = new Firebase(FIREBASE_URL + 'users/' + authUser.uid);
+           var userObj = $firebaseObject(userRef);
+           $rootScope.currentUser = userObj;
+       } else {
+           $rootScope.currentUser = '';
+       }
+        
+    });
+    
+    var myObject = {
+        //login method being passed user variable that comes from registration controller
         login: function(user){
-            $rootScope.message = "Welcome" + user.email;
-        },
+            auth.$authWithPassword({
+                email: user.email,
+                password: user.password
+            }).then(function(regUser){
+                $location.path('/success');
+            }).catch(function(error){
+                $rootScope.message = error.message;
+            });
+            
+        }, //login
+        
+        logout: function(){
+            return auth.$unauth();
+        }, //logout
+        
+        requireAuth: function(){
+            return auth.$requireAuth();
+        }, //require auth
         
         register: function(user){
           auth.$createUser({ 
@@ -29,7 +58,8 @@ myApp.factory('Authentication', ['$rootScope','$firebaseAuth','FIREBASE_URL',fun
                   email: user.email
               });
               
-             $rootScope.message = "Hello " + user.firstname + ", Thanks for registering";
+              //automagically logs user in once registration is complete!
+              myObject.login(user);
              
              //catches error and tells user in case email already exists
           }).catch(function(error){
@@ -37,6 +67,8 @@ myApp.factory('Authentication', ['$rootScope','$firebaseAuth','FIREBASE_URL',fun
           }); // create user             
             }//register
         };
+        
+        return myObject;
     
 }]); //factory
 
