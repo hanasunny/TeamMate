@@ -4,35 +4,64 @@ app.controller('MainCtrl', [
 '$scope',
 'teams',
 function($scope, teams){
-	$scope.teams = teams.teams;
-  $scope.addTeam = function() {
-  	if(!$scope.title || $scope.title === '') { return; }
-  	$scope.teams.push({title: $scope.title, members: 0})
-  	$scope.title = '';
-  }
+
 }]);
 
 app.controller('TeamsCtrl', [
 '$scope',
-'$stateParams',
 'teams',
-function($scope, $stateParams, teams){
-	$scope.team = teams.teams[$stateParams.id];
-	$scope.addMember = function() {
-		$scope.team.members.push({name: $scope.name})
-		$scope.name = '';
+function($scope, teams){
+	$scope.teams = teams.teams;
+
+	$scope.addTeam = function() {
+		if(!$scope.title || $scope.title === '') { return; }
+		teams.create({
+			title: $scope.title
+		})
+		$scope.title = '';
 	}
 }]);
 
-app.factory('teams', [function() {
+app.controller('TeamCtrl', [
+	'$scope',
+	'teams',
+	'team',
+	function($scope, teams, team) {
+		$scope.team = team;
+		$scope.addMember = function() {
+			if($scope.body === '') { return; }
+			teams.addMember(team._id, {
+				name: $scope.name
+			}).success(function(member) {
+				$scope.team.members.push(member)
+			})
+			$scope.name = '';
+		}
+	}
+])
+
+app.factory('teams', ['$http', function($http) {
 	var o = {
-		teams: [
-  	{title: 'Team1', members: [{name: 'Pieter'}, {name: 'Pieter2'}]},
-  	{title: 'Team2', members: [{name: 'Hana'},]},
-  	{title: 'Team3', members: [{name: 'Cody'},]},
-  	{title: 'Team4', members: [{name: 'Tiffany'},]}
-		]
+		teams: []
 	};
+	o.getAll = function() {
+		return $http.get('/teams').success(function(data) {
+			angular.copy(data, o.teams)
+		})
+	}
+	o.create = function(team) {
+		return $http.post('/teams', team).success(function(data) {
+			o.teams.push(data)
+		})
+	}
+	o.get = function(id) {
+		return $http.get('/teams/' + id).then(function(res) {
+			return res.data
+		});
+	}
+	o.addMember = function(id, member) {
+		return $http.post('/teams/' + id + '/members', member)
+	}
 	return o;
 }])
 
@@ -47,11 +76,26 @@ function($stateProvider, $urlRouterProvider) {
       templateUrl: '/home.html',
       controller: 'MainCtrl'
     })
-		.state('teams', {
-		  url: '/teams/{id}',
-		  templateUrl: '/teams.html',
-		  controller: 'TeamsCtrl'
-		});
+	.state('teams', {
+	  url: '/teams',
+	  templateUrl: '/teams.html',
+	  controller: 'TeamsCtrl',
+		resolve: {
+			postPromise: ['teams', function(teams) {
+				return teams.getAll();
+			}]
+		}
+	})
+	.state('team', {
+		url: '/team/{id}',
+		templateUrl: '/team.html',
+		controller: 'TeamCtrl',
+		resolve: {
+			team: ['$stateParams', 'teams', function ($stateParams, teams) {
+				return teams.get($stateParams.id);
+			}]
+		}
+	});
 
   $urlRouterProvider.otherwise('home');
 }]);
