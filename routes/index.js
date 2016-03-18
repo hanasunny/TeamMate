@@ -52,7 +52,6 @@ router.get('/teams/:team/members', function(req, res, next) {
 })
 
 router.post('/teams/:team/members', function(req, res, next) {
-    console.log(req)
     var member = new Member(req.body);
 
     member.save(function(err, member) {
@@ -66,6 +65,20 @@ router.post('/teams/:team/members', function(req, res, next) {
         })
 
     })
+})
+
+router.post('/teams/:team/members/remove', function(req, res, next) {
+    var mem = Member.findById(req.body.id, function(err, member) {
+        if(err) throw err;
+
+        req.team.members.remove(member)
+        req.team.save(function(e, team) {
+            if(e) return next(e);
+
+            res.json(member)
+        })
+    })
+
 })
 
 module.exports = router;

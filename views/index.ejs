@@ -39,8 +39,8 @@
 	  	</div>
 	  	<div class="sidenav">
 		  	<ul class="nav nav-pills nav-stacked">
-		  		<li role="presentation" class="active"><a href="#/home">HOMED</a></li>
-		  		<li role="presentation"><a href="#/teams">TEAMS</a></li>
+		  		<li role="presentation"><a href="#/home">HOME</a></li>
+		  		<li role="presentation" class="active"><a href="#/teams">TEAMS</a></li>
 		  		<li role="presentation"><a href="#">BLANK</a></li>
 		  		<li role="presentation"><a href="#">SIGN OUT</a></li>
 		  	</ul>
@@ -62,15 +62,17 @@
             </div>
             <div class="sidenav">
                 <ul class="nav nav-pills nav-stacked">
-                    <li role="presentation" class="active"><a href="#/home">HOMED</a></li>
-                    <li role="presentation"><a href="#/teams">TEAMS</a></li>
+                    <li role="presentation"><a href="#/home">HOME</a></li>
+                    <li role="presentation" class="active"><a href="#/teams">TEAMS</a></li>
                     <li role="presentation"><a href="#">BLANK</a></li>
                     <li role="presentation"><a href="#">SIGN OUT</a></li>
                 </ul>
             </div>
             <div class="content-wrapper">
+                <div><a href="#/teams">teams</a> > {{ team.title }}</div>
                 <div ng-repeat="member in team.members">
                     {{ member.name }}
+                    <a ng-click="removeMember(member._id)"><span class="glyphicon glyphicon-remove" aria hidden="true"></span></a>
                 </div>
                 <form ng-submit="addMember()">
                     <input type="text" ng-model="name" />

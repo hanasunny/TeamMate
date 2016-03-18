@@ -37,6 +37,22 @@ app.controller('TeamCtrl', [
 			})
 			$scope.name = '';
 		}
+		$scope.removeMember = function(id) {
+			teams.removeMember(team._id, {
+				id: id
+			}).success(function(member) {
+				var index = -1
+				for(var i = 0, len = $scope.team.members.length; i < len; i++) {
+					if($scope.team.members[i]._id === member._id) {
+						index = i;
+						break;
+					}
+				}
+				if(index > -1) {
+					$scope.team.members.splice(index, 1)
+				}
+			})
+		}
 	}
 ])
 
@@ -61,6 +77,9 @@ app.factory('teams', ['$http', function($http) {
 	}
 	o.addMember = function(id, member) {
 		return $http.post('/teams/' + id + '/members', member)
+	}
+	o.removeMember = function(id, member) {
+		return $http.post('/teams/' + id + '/members/remove', member)
 	}
 	return o;
 }])
