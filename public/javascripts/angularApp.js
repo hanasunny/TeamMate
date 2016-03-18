@@ -20,6 +20,20 @@ function($scope, teams){
 		})
 		$scope.title = '';
 	}
+	$scope.removeTeam = function(team) {
+		teams.remove(team).success(function() {
+			var index = -1
+			for(var i = 0, len = $scope.teams.length; i < len; i++) {
+				if($scope.teams[i]._id === team._id) {
+					index = i;
+					break;
+				}
+			}
+			if(index > -1) {
+				$scope.teams.splice(index, 1)
+			}
+		})
+	}
 }]);
 
 app.controller('TeamCtrl', [
@@ -69,6 +83,9 @@ app.factory('teams', ['$http', function($http) {
 		return $http.post('/teams', team).success(function(data) {
 			o.teams.push(data)
 		})
+	}
+	o.remove = function(team) {
+		return $http.post('/teams/' + team._id + '/remove', team)
 	}
 	o.get = function(id) {
 		return $http.get('/teams/' + id).then(function(res) {

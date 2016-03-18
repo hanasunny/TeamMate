@@ -46,8 +46,9 @@
 		  	</ul>
 	  	</div>
         <div class="content-wrapper">
-            <div ng-repeat="team in teams">
+            <div ng-repeat="team in teams | orderBy : 'title'">
                 <a href="#/team/{{team._id}}">{{ team.title }}</a>
+                <a ng-click="removeTeam(team)"><span class="glyphicon glyphicon-remove" aria hidden="true"></span></a>
             </div>
             <form ng-submit="addTeam()">
                 <input type="text" ng-model="title"></input>

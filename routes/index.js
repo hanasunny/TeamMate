@@ -47,6 +47,16 @@ router.get('/teams/:team', function(req, res) {
     })
 })
 
+router.post('/teams/:team/remove', function(req, res, next) {
+    var t = Team.findById(req.body.id, function(err, team) {
+        if(err) return next(err);
+
+        req.team.remove()
+        req.team.save()
+    })
+    res.json(req.team)
+})
+
 router.get('/teams/:team/members', function(req, res, next) {
     res.json(req.team.members)
 })
@@ -80,5 +90,7 @@ router.post('/teams/:team/members/remove', function(req, res, next) {
     })
 
 })
+
+
 
 module.exports = router;
