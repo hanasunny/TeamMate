@@ -102,7 +102,8 @@ router.post('/teams/:team/members', auth, function(req, res, next) {
     		//If no, is member valid user?
     		User.findOne({ 'username': req.body.name }, function(e, user) {
     			if(user === null) {
-    				return next(new Error("Not a valid user!"))
+    				res.status(400).send('That is not a valid user!')
+    				return;
     			}
     			else {
     				//If yes, create new member & push to arrays!
