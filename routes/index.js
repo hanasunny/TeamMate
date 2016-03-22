@@ -28,13 +28,17 @@ router.get('/', function(req, res, next) {
 router.get('/teams', auth, function(req, res, next) {
     var ownedTeams = [];
     var memberTeams = [];
+
+    //Find member for current user
     Member.findOne({ 'name': req.payload.username }, function(error, member) {
     	if(error) return next(error);
+    		//Find teams where current user is the creator
 				Team.find( { 'creator': req.payload.username }, function(e, ownedteams) {
 		        if (e) { return next(e); }
 
 		        ownedTeams = ownedteams;
-
+		        if(member === null) { res.json({ownedTeams, memberTeams}); return;}
+		        //Find teams where current user is a member
 				    Team.find({ "_id": { $in: member.teams } }, function(err, memberteams) {
 		    			if(err) return next(err);
 		    			memberTeams = memberteams
@@ -42,7 +46,6 @@ router.get('/teams', auth, function(req, res, next) {
 		    		})
 		    })
     })
-    //res.json({ownedTeams, memberTeams})
 })
 
 router.post('/teams', auth, function(req, res, next) {
@@ -65,11 +68,19 @@ router.get('/teams/:team', auth, function(req, res) {
 })
 
 router.post('/teams/:team/remove', auth, function(req, res, next) {
-    var t = Team.findById(req.body.id, function(err, team) {
+    Team.findById(req.body.id, function(err, team) {
         if(err) return next(err);
 
         req.team.remove()
         req.team.save()
+        //Find all members in team being deleted and remove team id from members.teams
+        Member.find({ "_id": {  $in: req.team.members } }, function(err, members) {
+        	for(var i = 0; i < members.length; i++) {
+        		var index = members[i].teams.indexOf(req.team.id)
+        		members[i].teams.splice(index, 1)
+        		members[i].save()
+        	}
+        })
     })
     res.json(req.team)
 })
@@ -80,8 +91,8 @@ router.get('/teams/:team/members', auth, function(req, res, next) {
 
 router.post('/teams/:team/members', auth, function(req, res, next) {
 		if(req.team.creator === req.body.name) { 
-			res.status(400).send('You cannot add yourself as a user!');
-			return next()
+			res.status(400).send('You cannot add the owner of the project as a user!');
+			return;
 		}
     var newMem = new Member(req.body);
 
@@ -102,7 +113,7 @@ router.post('/teams/:team/members', auth, function(req, res, next) {
 				        req.team.members.push(mem)
 				        req.team.save(function(e, team) {
 				            if(e) { return next(e); }
-				            res.json(mem)
+				            res.json(mem);
 				        })
 				  	})
     			}
