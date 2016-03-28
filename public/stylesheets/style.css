@@ -1,29 +1,52 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+
+ 	padding: 50px;
+ 	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+ 	color: #00B7FF; 
+
+}
+
+.page-header h1, h2, h3{
+
+	font-weight: 800;	
 }
 
 .sidenav {
-	width: 25%;
+	width: 23%;
 	float: left;
 	height: 500px;
 	margin-right: 10px;
+	position: fixed;
+
 }
+
 .sidenav ul {
 	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	height: 100%;
 	font-size: 35px;
+	background-color: #DCDCDC;
+	overflow: auto;
 }
+
 .sidenav ul li a {
 	padding: 0;
 }
+
+.sidenav li a:hover:not(.active) {
+
+	background-color: #f1f1f1;
+}
+
 .content-wrapper {
 	width: 70%;
 	float: right;
 }
 body {
+
 	padding: 0;
 }
